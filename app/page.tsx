@@ -590,8 +590,8 @@ export default function OctopusLineConseil() {
             <div style={{fontSize:"0.72rem",fontWeight:800,color:"#00bfff"}}>
               Sud-Est · Paris · International
           </div>
-         </div>
         </div>
+      </div>
       </section>
       <section id="expertises">
         <div className="reveal">
@@ -768,9 +768,8 @@ export default function OctopusLineConseil() {
                 transformation SI, gouvernance DSI, IA & automatisation.
               </div>
             </div>
-          </div>
-
-          </div>
+            </div>
+            </div>
       </section>
 
       <section id="critical">
