@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 export default function OctopusLineConseil() {
-  const [lang, setLang] = useState("fr");
+const [lang, setLang] = useState<"fr" | "en">("fr");
 
   const t = {
     fr: {
