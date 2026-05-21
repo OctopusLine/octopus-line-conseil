@@ -175,6 +175,15 @@ export default function OctopusLineConseil() {
           .diagnostic-grid { grid-template-columns:1fr !important; }
           .section-title { font-size:1.8rem !important; }
           .hero-card { padding:1rem !important; }
+          .ia-cards-grid { grid-template-columns:1fr 1fr !important; }
+          .badge-mobile { display:inline !important; }
+          .badge-desktop { display:none !important; }
+          .badge-mobile { display:none; }
+          .badge-desktop { display:inline; }
+          .kpi-row { grid-template-columns:1fr 1fr !important; }
+          .kpi-row > div:nth-child(2) { border-right:none !important; }
+          .kpi-row > div:nth-child(1),
+          .kpi-row > div:nth-child(2) { border-bottom:1px solid rgba(0,191,255,0.08) !important; }
         }
         @media(max-width:480px){
           .hero h1 { font-size:2rem; }
@@ -233,15 +242,21 @@ export default function OctopusLineConseil() {
         </svg>
         <div className="grid-bg"></div>
         <div style={{position:"relative",zIndex:2,maxWidth:"1280px",width:"100%",margin:"0 auto",textAlign:"left"}}>
-          <div className="section-label" style={{display:"flex",alignItems:"center"}}>
-            <svg width="28" height="28" viewBox="0 0 38 38" style={{flexShrink:0,marginRight:"0.5rem"}}>
+          <div className="section-label" style={{display:"flex",alignItems:"center",flexWrap:"wrap",gap:"0.4rem"}}>
+            <svg width="24" height="24" viewBox="0 0 38 38" style={{flexShrink:0}}>
               <text x="19" y="30" fontSize="28" textAnchor="middle">🐙</text>
               <circle cx="14" cy="15" r="2.2" fill="#000" opacity="0.9"/>
               <circle cx="24" cy="15" r="2.2" fill="#000" opacity="0.9"/>
               <circle cx="14.7" cy="14.3" r="0.8" fill="white" opacity="0.95"/>
               <circle cx="24.7" cy="14.3" r="0.8" fill="white" opacity="0.95"/>
             </svg>
-            {lang==="fr"?"MANAGER DE TRANSITION DSI · CDO · RSSI · CISO":"INTERIM CIO · CDO · CISO · CTO"}
+            <span style={{whiteSpace:"nowrap"}}>
+              {lang==="fr"?"Manager de Transition":"Interim Management"}
+            </span>
+            <span style={{opacity:0.6}}>·</span>
+            <span style={{whiteSpace:"nowrap"}}>
+              {lang==="fr"?"DSI · CDO · RSSI / CISO":"CIO · CDO · CISO · CTO"}
+            </span>
           </div>
           <h1>{lang==="fr"?"Transformation SI, gestion de crise & management de transition.":"IT transformation, crisis management & interim leadership."}<br/><em>{lang==="fr"?"Opérationnel dès le premier jour.":"Operational from day one."}</em></h1>
           <p>{lang==="fr"?"Pilotage DSI de transition, transformation IT, gestion de crise, carve-out & intégration SI. Alignement technologique et objectifs métiers dans les contextes sensibles.":"Interim CIO leadership, IT transformation, crisis management, carve-out & system integration. Technology aligned with business objectives in sensitive environments."}</p>
@@ -481,9 +496,9 @@ export default function OctopusLineConseil() {
         <div className="reveal" className="kpi-row" style={{maxWidth:"1280px",width:"100%",margin:"2rem auto 0",display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:0,background:"rgba(0,191,255,0.04)",border:"1px solid rgba(0,191,255,0.1)",borderRadius:"12px",overflow:"hidden"}}>
           {(lang==="fr"?[
             {v:"30j",l:"Audit flash & diagnostic"},
-            {v:"2-3 ans",l:"Vision Plan Directeur"},
+            {v:"2-3 ans",l:"Vision PDI"},
             {v:"CODIR/DG",l:"Niveau pilotage"},
-            {v:"100%",l:"Alignement IT / Métiers"},
+            {v:"100%",l:"Alignement IT/Métiers"},
           ]:[
             {v:"30d",l:"Flash audit & diagnostic"},
             {v:"2-3 yrs",l:"Master Plan vision"},
