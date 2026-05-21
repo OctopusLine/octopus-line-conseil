@@ -493,7 +493,7 @@ export default function OctopusLineConseil() {
         </div>
 
         {/* KPIs */}
-        <div className="reveal" className="kpi-row" style={{maxWidth:"1280px",width:"100%",margin:"2rem auto 0",display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:0,background:"rgba(0,191,255,0.04)",border:"1px solid rgba(0,191,255,0.1)",borderRadius:"12px",overflow:"hidden"}}>
+        <div className="reveal kpi-row" style={{maxWidth:"1280px",width:"100%",margin:"2rem auto 0",display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:0,background:"rgba(0,191,255,0.04)",border:"1px solid rgba(0,191,255,0.1)",borderRadius:"12px",overflow:"hidden"}}>
           {(lang==="fr"?[
             {v:"30j",l:"Audit flash & diagnostic"},
             {v:"2-3 ans",l:"Vision PDI"},
@@ -653,7 +653,7 @@ export default function OctopusLineConseil() {
         </div>
 
         {/* KPIs IA */}
-        <div className="reveal" className="kpi-row" style={{maxWidth:"1280px",width:"100%",margin:"1.5rem auto 0",display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:0,background:"rgba(0,255,213,0.04)",border:"1px solid rgba(0,255,213,0.1)",borderRadius:"12px",overflow:"hidden"}}>
+        <div className="reveal kpi-row" style={{maxWidth:"1280px",width:"100%",margin:"1.5rem auto 0",display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:0,background:"rgba(0,255,213,0.04)",border:"1px solid rgba(0,255,213,0.1)",borderRadius:"12px",overflow:"hidden"}}>
           {(lang==="fr"?[
             {v:"30j",l:"Diagnostic flash"},
             {v:"12-36m",l:"Feuille de route"},
