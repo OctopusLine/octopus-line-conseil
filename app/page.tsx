@@ -730,20 +730,44 @@ export default function OctopusLineConseil() {
         <div className="reveal" style={{maxWidth:"1280px",width:"100%",margin:"0 auto",background:"rgba(0,191,255,0.05)",border:"1px solid rgba(0,191,255,0.18)",borderRadius:"20px",padding:"32px"}}>
           <h3 style={{fontSize:"1.4rem",fontWeight:900,marginBottom:"20px"}}>{lang==="fr"?"Nous rejoindre":"Join our network"}</h3>
           <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(240px,1fr))",gap:"14px"}}>
-            <input placeholder={lang==="fr"?"Nom & prénom":"Full name"} style={{padding:"14px",borderRadius:"10px",border:"1px solid rgba(255,255,255,0.1)",background:"#071120",color:"white"}}/>
-            <input placeholder="Email" style={{padding:"14px",borderRadius:"10px",border:"1px solid rgba(255,255,255,0.1)",background:"#071120",color:"white"}}/>
+            <input name="nom" placeholder={lang==="fr"?"Nom & prénom":"Full name"} style={{padding:"14px",borderRadius:"10px",border:"1px solid rgba(255,255,255,0.1)",background:"#071120",color:"white"}}/>
+            <input name="email" placeholder="Email" style={{padding:"14px",borderRadius:"10px",border:"1px solid rgba(255,255,255,0.1)",background:"#071120",color:"white"}}/>
             <input placeholder={lang==="fr"?"Fonction / expertise":"Role / expertise"} style={{padding:"14px",borderRadius:"10px",border:"1px solid rgba(255,255,255,0.1)",background:"#071120",color:"white"}}/>
             <input placeholder={lang==="fr"?"TJM souhaité":"Expected daily rate"} style={{padding:"14px",borderRadius:"10px",border:"1px solid rgba(255,255,255,0.1)",background:"#071120",color:"white"}}/>
           </div>
           <textarea placeholder={lang==="fr"?"Résumé de profil, missions, secteurs, ERP, cybersécurité, transformation, management de transition...":"Profile summary, missions, ERP, cybersecurity, transformation, interim leadership..."} style={{width:"100%",minHeight:"120px",marginTop:"14px",padding:"14px",borderRadius:"10px",border:"1px solid rgba(255,255,255,0.1)",background:"#071120",color:"white",resize:"vertical"}}/>
+          <div style={{marginTop:"14px",padding:"14px",border:"1px dashed rgba(0,191,255,0.35)",borderRadius:"12px",background:"rgba(0,191,255,0.04)"}}>
+            <div style={{fontWeight:700,color:"#00bfff",fontSize:"0.88rem",marginBottom:"6px"}}>📎 {lang==="fr"?"Lien vers votre CV":"Link to your CV"}</div>
+            <div style={{fontSize:"0.75rem",color:"rgba(255,255,255,0.4)",marginBottom:"8px"}}>{lang==="fr"?"Partagez via LinkedIn, Google Drive ou Dropbox":"Share via LinkedIn, Google Drive or Dropbox"}</div>
+            <input type="url" placeholder={lang==="fr"?"https://linkedin.com/in/votre-profil ou Google Drive...":"https://linkedin.com/in/your-profile or Google Drive..."} style={{width:"100%",padding:"10px 12px",borderRadius:"8px",border:"1px solid rgba(0,191,255,0.2)",background:"#071120",color:"white",fontSize:"0.82rem"}}/>
+            <div style={{display:"flex",gap:"6px",marginTop:"8px",flexWrap:"wrap"}}>
+              {["💼 LinkedIn","📁 Google Drive","📦 Dropbox","🔗 Autre lien"].map(t=>(
+                <span key={t} style={{fontSize:"0.68rem",padding:"3px 8px",borderRadius:"12px",border:"0.5px solid rgba(0,191,255,0.2)",color:"#00bfff"}}>{t}</span>
+              ))}
+            </div>
+          </div>
           <div style={{display:"flex",justifyContent:"flex-start",alignItems:"center",gap:"16px",flexWrap:"wrap",marginTop:"16px"}}>
-            <div style={{color:"rgba(255,255,255,0.5)",fontSize:"0.85rem"}}>{lang==="fr"?"Managers de transition · CIO · CISO · CTO · ERP · Cyber · IA & Innovation":"Interim Executives · CIO · CISO · CTO · ERP · Cyber · AI & Innovation"}</div>
-            <button className="btn-primary" type="button" onClick={(e)=>{
+            <div style={{color:"rgba(255,255,255,0.5)",fontSize:"0.85rem"}}>{lang==="fr"?"Managers de transition · DSI / CIO · CDO · RSSI / CISO · CTO":"Interim Managers · CIO · CDO · CISO · CTO"}</div>
+            <button className="btn-primary" type="button" onClick={async (e)=>{
               const btn = e.currentTarget;
-              btn.textContent = lang==="fr"?"✓ Profil envoyé !":"✓ Profile sent!";
-              btn.style.background="#00f0c0";
-              btn.style.color="#000";
-              setTimeout(()=>{btn.textContent=lang==="fr"?"Envoyer mon profil":"Submit my profile";btn.style.background="";btn.style.color="";},3000);
+              btn.textContent = lang==="fr"?"Envoi en cours...":"Sending...";
+              btn.style.opacity="0.7";
+              const inputs = btn.closest('div')?.parentElement?.querySelectorAll('input,textarea');
+              const data = new FormData();
+              inputs?.forEach((el:any) => { if(el.name && el.value) data.append(el.name, el.value); });
+              try {
+                const res = await fetch("https://formspree.io/f/mwvzoogr", {method:"POST",body:data,headers:{"Accept":"application/json"}});
+                if(res.ok){
+                  btn.textContent = lang==="fr"?"✓ Profil envoyé !":"✓ Profile sent!";
+                  btn.style.background="#00f0c0";
+                  btn.style.color="#000";
+                  btn.style.opacity="1";
+                  setTimeout(()=>{btn.textContent=lang==="fr"?"Envoyer mon profil →":"Submit my profile →";btn.style.background="";btn.style.color="";},4000);
+                } else {
+                  btn.textContent="Erreur — réessayez";
+                  btn.style.opacity="1";
+                }
+              } catch{btn.textContent="Erreur — réessayez";btn.style.opacity="1";}
             }}>{lang==="fr"?"Envoyer mon profil →":"Submit my profile →"}</button>
           </div>
         </div>
@@ -854,10 +878,10 @@ export default function OctopusLineConseil() {
         <div className="reveal" style={{maxWidth:"1280px",width:"100%",margin:"0 auto",background:"rgba(0,191,255,0.04)",border:"1px solid rgba(0,191,255,0.15)",borderRadius:"18px",padding:"32px"}}>
           <h3 style={{fontSize:"1.4rem",fontWeight:900,marginBottom:"20px"}}>{lang==="fr"?"Échangez avec un expert":"Talk with an expert"}</h3>
           <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(220px,1fr))",gap:"14px"}}>
-            <input placeholder={lang==="fr"?"Nom & prénom":"Full name"} style={{padding:"14px",borderRadius:"10px",border:"1px solid rgba(255,255,255,0.1)",background:"#071120",color:"white"}}/>
-            <input placeholder="Email" style={{padding:"14px",borderRadius:"10px",border:"1px solid rgba(255,255,255,0.1)",background:"#071120",color:"white"}}/>
-            <input placeholder={lang==="fr"?"Téléphone":"Phone"} style={{padding:"14px",borderRadius:"10px",border:"1px solid rgba(255,255,255,0.1)",background:"#071120",color:"white"}}/>
-            <input placeholder={lang==="fr"?"Entreprise":"Company"} style={{padding:"14px",borderRadius:"10px",border:"1px solid rgba(255,255,255,0.1)",background:"#071120",color:"white"}}/>
+            <input name="nom" placeholder={lang==="fr"?"Nom & prénom":"Full name"} style={{padding:"14px",borderRadius:"10px",border:"1px solid rgba(255,255,255,0.1)",background:"#071120",color:"white"}}/>
+            <input name="email" placeholder="Email" style={{padding:"14px",borderRadius:"10px",border:"1px solid rgba(255,255,255,0.1)",background:"#071120",color:"white"}}/>
+            <input name="telephone" placeholder={lang==="fr"?"Téléphone":"Phone"} style={{padding:"14px",borderRadius:"10px",border:"1px solid rgba(255,255,255,0.1)",background:"#071120",color:"white"}}/>
+            <input name="entreprise" placeholder={lang==="fr"?"Entreprise":"Company"} style={{padding:"14px",borderRadius:"10px",border:"1px solid rgba(255,255,255,0.1)",background:"#071120",color:"white"}}/>
           </div>
           <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"14px",marginTop:"14px"}}>
             <select style={{padding:"14px",borderRadius:"10px",border:"1px solid rgba(255,255,255,0.1)",background:"#071120",color:"white"}}>
@@ -877,19 +901,33 @@ export default function OctopusLineConseil() {
               <option>{lang==="fr"?"⚪ À définir ensemble":"⚪ To be defined"}</option>
             </select>
           </div>
-          <textarea placeholder={lang==="fr"?"Décrivez votre contexte, projet, urgence ou besoin de management de transition... Plus vous êtes précis, plus nous pourrons vous proposer une intervention adaptée.":"Describe your context, project, urgency or interim management needs... The more precise you are, the better we can propose an adapted intervention."} style={{width:"100%",minHeight:"160px",marginTop:"14px",padding:"14px",borderRadius:"10px",border:"1px solid rgba(255,255,255,0.1)",background:"#071120",color:"white",resize:"vertical"}}/>
+          <textarea name="message" placeholder={lang==="fr"?"Décrivez votre contexte, projet, urgence ou besoin de management de transition... Plus vous êtes précis, plus nous pourrons vous proposer une intervention adaptée.":"Describe your context, project, urgency or interim management needs... The more precise you are, the better we can propose an adapted intervention."} style={{width:"100%",minHeight:"160px",marginTop:"14px",padding:"14px",borderRadius:"10px",border:"1px solid rgba(255,255,255,0.1)",background:"#071120",color:"white",resize:"vertical"}}/>
           <div style={{display:"flex",justifyContent:"flex-start",alignItems:"center",gap:"16px",flexWrap:"wrap",marginTop:"20px"}}>
             <div style={{display:"flex",alignItems:"center",gap:"1rem",flexWrap:"wrap"}}>
               <a href="tel:+33623733484" style={{fontSize:"0.88rem",fontWeight:700,color:"#00bfff",textDecoration:"none"}}>📞 +33 (0)6 23 73 34 84</a>
               <a href="mailto:contact@octopus-line-conseil.com" style={{fontSize:"0.88rem",fontWeight:700,color:"#00bfff",textDecoration:"none"}}>✉️ contact@octopus-line-conseil.com</a>
               <div style={{fontSize:"0.82rem",color:"rgba(255,255,255,0.4)"}}>{lang==="fr"?"Sophia Antipolis · Monaco · Paris · International":"Sophia Antipolis · Monaco · Paris · International"}</div>
             </div>
-            <button className="btn-primary" type="button" onClick={(e)=>{
+            <button className="btn-primary" type="button" onClick={async (e)=>{
               const btn = e.currentTarget;
-              btn.textContent = lang==="fr"?"✓ Message envoyé !":"✓ Message sent!";
-              btn.style.background="#00f0c0";
-              btn.style.color="#000";
-              setTimeout(()=>{btn.textContent=lang==="fr"?"Envoyer ma demande →":"Send request →";btn.style.background="";btn.style.color="";},3000);
+              btn.textContent = lang==="fr"?"Envoi en cours...":"Sending...";
+              btn.style.opacity="0.7";
+              const inputs = btn.closest('div')?.parentElement?.querySelectorAll('input,select,textarea');
+              const data = new FormData();
+              inputs?.forEach((el:any) => { if(el.name && el.value) data.append(el.name, el.value); });
+              try {
+                const res = await fetch("https://formspree.io/f/xgoqkywk", {method:"POST",body:data,headers:{"Accept":"application/json"}});
+                if(res.ok){
+                  btn.textContent = lang==="fr"?"✓ Message envoyé !":"✓ Message sent!";
+                  btn.style.background="#00f0c0";
+                  btn.style.color="#000";
+                  btn.style.opacity="1";
+                  setTimeout(()=>{btn.textContent=lang==="fr"?"Envoyer ma demande →":"Send request →";btn.style.background="";btn.style.color="";},4000);
+                } else {
+                  btn.textContent="Erreur — réessayez";
+                  btn.style.opacity="1";
+                }
+              } catch{btn.textContent="Erreur — réessayez";btn.style.opacity="1";}
             }}>{lang==="fr"?"Envoyer ma demande →":"Send request →"}</button>
           </div>
         </div>
