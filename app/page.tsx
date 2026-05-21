@@ -760,27 +760,15 @@ export default function OctopusLineConseil() {
               const cvInput = section?.querySelector('input[type="url"]') as HTMLInputElement;
               const cv = cvInput?.value || '';
               const subject = encodeURIComponent(lang==="fr"?"Candidature réseau Octopus Line Conseil":"Network application Octopus Line Conseil");
-              const body = encodeURIComponent(
-                (lang==="fr"?"Nom: ":"Name: ") + nom + "
-" +
-                "Email: " + email + "
-" +
-                (lang==="fr"?"Fonction: ":"Role: ") + fonction + "
-" +
-                "TJM: " + tjm + "
-
-" +
-                (lang==="fr"?"Profil:
-":"Profile:
-") + profil + "
-
-" +
-                (lang==="fr"?"Lien CV: ":"CV link: ") + cv + "
-
-" +
-                (lang==="fr"?"--- Merci de joindre votre CV en pièce jointe ---":"--- Please attach your CV to this email ---")
-              );
-              window.location.href = `mailto:contact@octopus-line-conseil.com?subject=${subject}&body=${body}`;
+              const nl = "%0A";
+              const body = encodeURIComponent((lang==="fr"?"Nom: ":"Name: ") + nom) + nl +
+                encodeURIComponent("Email: " + email) + nl +
+                encodeURIComponent((lang==="fr"?"Fonction: ":"Role: ") + fonction) + nl +
+                encodeURIComponent("TJM: " + tjm) + nl + nl +
+                encodeURIComponent((lang==="fr"?"Profil: ":"Profile: ") + profil) + nl + nl +
+                encodeURIComponent((lang==="fr"?"Lien CV: ":"CV link: ") + cv) + nl + nl +
+                encodeURIComponent(lang==="fr"?"--- Merci de joindre votre CV en piece jointe ---":"--- Please attach your CV to this email ---");
+              window.location.href = "mailto:contact@octopus-line-conseil.com?subject=" + subject + "&body=" + body;
             }}>{lang==="fr"?"Envoyer mon profil →":"Submit my profile →"}</button>
           </div>
         </div>
