@@ -104,7 +104,7 @@ export default function OctopusLineConseil() {
         .tag-list { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:22px; }
         .tag { border:1px solid rgba(255,255,255,0.12); padding:8px 12px; border-radius:20px; font-size:0.72rem; color:rgba(255,255,255,0.7); }
 
-        section { padding:6vw 4vw; width:100%; max-width:1680px; margin:0 auto; display:flex; flex-direction:column; align-items:flex-start; position:relative; }
+        section { padding:6vw 4%; width:100%; max-width:1680px; margin:0 auto; display:flex; flex-direction:column; align-items:flex-start; position:relative; }
         .section-title { font-size:clamp(2rem,5vw,3.4rem); line-height:1; font-weight:900; margin-bottom:18px; letter-spacing:-0.05em; }
         .section-label { color:var(--blue); text-transform:uppercase; letter-spacing:0.12em; font-size:0.95rem; font-weight:900; margin-bottom:16px; line-height:1.5; }
         .section-sub { color:rgba(255,255,255,0.6); max-width:760px; line-height:1.8; margin-bottom:42px; }
@@ -155,10 +155,12 @@ export default function OctopusLineConseil() {
           .role-grid { grid-template-columns:1fr 1fr; }
         }
         @media(max-width:768px){
+          .two-col-grid { grid-template-columns:1fr !important; }
+          .expertises-grid { grid-template-columns:1fr 1fr !important; }
           nav { padding:12px 16px; flex-wrap:wrap; gap:8px; }
           .nav-links { display:none; }
           .nav-phone { display:none !important; }
-          .hero, section { padding-left:16px; padding-right:16px; }
+          .hero, section { padding-left:4% !important; padding-right:4% !important; }
           .hero { padding-top:80px; }
           .hero h1 { font-size:2.4rem; }
           .buttons { flex-direction:column; width:100%; }
@@ -354,7 +356,7 @@ export default function OctopusLineConseil() {
             {lang==="fr"?"DSI de transition, transformation IT, cybersécurité, gouvernance, ERP, IA & Innovation — une approche pragmatique centrée business.":"Interim CIO leadership, IT transformation, cybersecurity, governance, ERP, AI & Innovation — a pragmatic business-driven approach."}
           </p>
         </div>
-        <div style={{maxWidth:"1280px",margin:"0 auto",width:"100%",display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:"24px"}} className="reveal">
+        <div style={{maxWidth:"1280px",margin:"0 auto",width:"100%",display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:"24px"}} className="expertises-grid reveal">
           {(lang==="fr"?[
             {n:"01",t:"DSI de Transition",c:"#00bfff",i:"🏛️",d:"Transition de direction, restructuration, gouvernance DSI, pilotage de la performance et alignement business."},
             {n:"02",t:"Transformation SI",c:"#b86cff",i:"🚀",d:"Stratégie & feuille de route, modernisation SI, architecture, cloud, automatisation et amélioration continue."},
@@ -374,12 +376,12 @@ export default function OctopusLineConseil() {
             {n:"07",t:"Partner Firms",c:"#289cff",i:"🤝",d:"Executive partner firms, IT placement, strategic assignments and interim leadership."},
             {n:"08",t:"Executive IT Network",c:"#35ff9c",i:"🌐",d:"CIO, CTO, CISO and program leadership network for complex environments."}
           ]).map(card=>(
-            <div key={card.n} style={{background:"linear-gradient(180deg,#071120,#04101d)",border:`1px solid ${card.c}55`,borderRadius:"20px",padding:"32px",minHeight:"280px",display:"flex",flexDirection:"column",boxShadow:`0 0 20px ${card.c}18`}}>
+            <div key={card.n} style={{background:"linear-gradient(180deg,#071120,#04101d)",border:`1px solid ${card.c}55`,borderRadius:"16px",padding:"clamp(16px,3vw,32px)",minHeight:"auto",display:"flex",flexDirection:"column",boxShadow:`0 0 20px ${card.c}18`,wordBreak:"break-word",overflow:"hidden"}}>
               <div style={{display:"flex",justifyContent:"flex-start",marginBottom:"14px",gap:"10px"}}>
                 <div style={{fontSize:"2rem"}}>{card.i}</div>
                 <div style={{fontSize:"1.5rem",fontWeight:900,color:card.c}}>{card.n}</div>
               </div>
-              <h3 style={{fontSize:"1.2rem",fontWeight:900,color:"white",marginBottom:"12px",lineHeight:1.1}}>{card.t}</h3>
+              <h3 style={{fontSize:"clamp(0.95rem,2vw,1.2rem)",fontWeight:900,color:"white",marginBottom:"12px",lineHeight:1.2}}>{card.t}</h3>
               <div style={{height:"2px",width:"100%",background:card.c,marginBottom:"14px"}}></div>
               <p style={{color:"rgba(255,255,255,0.75)",lineHeight:1.7,fontSize:"0.88rem"}}>{card.d}</p>
             </div>
@@ -411,7 +413,7 @@ export default function OctopusLineConseil() {
           </p>
         </div>
 
-        <div style={{maxWidth:"1280px",width:"100%",margin:"0 auto",display:"grid",gridTemplateColumns:"1fr 1fr",gap:"2rem"}} className="reveal">
+        <div className="two-col-grid reveal" style={{maxWidth:"1280px",width:"100%",margin:"0 auto",display:"grid",gridTemplateColumns:"1fr 1fr",gap:"2rem"}}>
 
           {/* Schéma Directeur SI */}
           <div style={{background:"rgba(8,18,38,0.8)",border:"1px solid rgba(0,191,255,0.2)",borderRadius:"16px",padding:"2rem",borderTop:"3px solid #00bfff"}}>
@@ -476,16 +478,16 @@ export default function OctopusLineConseil() {
         </div>
 
         {/* KPIs */}
-        <div className="reveal" style={{maxWidth:"1280px",width:"100%",margin:"2rem auto 0",display:"flex",gap:"0",background:"rgba(0,191,255,0.04)",border:"1px solid rgba(0,191,255,0.1)",borderRadius:"12px",overflow:"hidden"}}>
+        <div className="reveal" className="kpi-row" style={{maxWidth:"1280px",width:"100%",margin:"2rem auto 0",display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:0,background:"rgba(0,191,255,0.04)",border:"1px solid rgba(0,191,255,0.1)",borderRadius:"12px",overflow:"hidden"}}>
           {(lang==="fr"?[
             {v:"30j",l:"Audit flash & diagnostic"},
             {v:"2-3 ans",l:"Vision Plan Directeur"},
-            {v:"CODIR/COMEX/DG",l:"Niveau de pilotage"},
+            {v:"CODIR/DG",l:"Niveau pilotage"},
             {v:"100%",l:"Alignement IT / Métiers"},
           ]:[
             {v:"30d",l:"Flash audit & diagnostic"},
             {v:"2-3 yrs",l:"Master Plan vision"},
-            {v:"Board",l:"Governance level"},
+            {v:"CODIR/DG",l:"Gov. level"},
             {v:"100%",l:"IT / Business alignment"},
           ]).map((s,i,arr)=>(
             <div key={i} style={{flex:1,padding:"1.5rem",textAlign:"center",borderRight:i<arr.length-1?"1px solid rgba(0,191,255,0.1)":"none"}}>
@@ -550,7 +552,7 @@ export default function OctopusLineConseil() {
             </div>
           </div>
         </div>
-        <div style={{maxWidth:"1280px",width:"100%",margin:"0 auto",display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:"1px",background:"rgba(0,255,213,0.06)"}} className="reveal">
+        <div className="ia-cards-grid reveal" style={{maxWidth:"1280px",width:"100%",margin:"0 auto",display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:"1px",background:"rgba(0,255,213,0.06)"}}>
           {(lang==="fr"?[
             {t:"Data First",i:"📊",d:"Gouvernance & qualité de la donnée avant tout. Architecture data, Data Platform, BI & Analytics au service de la performance."},
             {t:"IA & LLM",i:"🤖",d:"Déploiement IA générative, LLM, copilots métier. Cas d'usage concrets, mesurés, +15 à 20% de productivité documentés."},
@@ -571,7 +573,7 @@ export default function OctopusLineConseil() {
         </div>
 
         {/* Diagnostic IA + Stratégie IA */}
-        <div style={{maxWidth:"1280px",width:"100%",margin:"2rem auto 0",display:"grid",gridTemplateColumns:"1fr 1fr",gap:"2rem"}} className="reveal">
+        <div className="two-col-grid reveal" style={{maxWidth:"1280px",width:"100%",margin:"2rem auto 0",display:"grid",gridTemplateColumns:"1fr 1fr",gap:"2rem"}}>
 
           {/* Diagnostic IA */}
           <div style={{background:"rgba(8,18,38,0.8)",border:"1px solid rgba(0,191,255,0.2)",borderRadius:"16px",padding:"2rem",borderTop:"3px solid #00bfff"}}>
@@ -636,21 +638,21 @@ export default function OctopusLineConseil() {
         </div>
 
         {/* KPIs IA */}
-        <div className="reveal" style={{maxWidth:"1280px",width:"100%",margin:"1.5rem auto 0",display:"flex",gap:"0",background:"rgba(0,255,213,0.04)",border:"1px solid rgba(0,255,213,0.1)",borderRadius:"12px",overflow:"hidden"}}>
+        <div className="reveal" className="kpi-row" style={{maxWidth:"1280px",width:"100%",margin:"1.5rem auto 0",display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:0,background:"rgba(0,255,213,0.04)",border:"1px solid rgba(0,255,213,0.1)",borderRadius:"12px",overflow:"hidden"}}>
           {(lang==="fr"?[
             {v:"30j",l:"Diagnostic flash"},
             {v:"12-36m",l:"Feuille de route"},
-            {v:"CODIR/COMEX/DG",l:"Niveau pilotage"},
+            {v:"CODIR/DG",l:"Niveau pilotage"},
             {v:"+20%",l:"Productivité documentée"},
           ]:[
             {v:"30d",l:"Flash diagnostic"},
             {v:"12-36m",l:"AI roadmap"},
-            {v:"Board",l:"Governance level"},
+            {v:"CODIR/DG",l:"Gov. level"},
             {v:"+20%",l:"Documented productivity"},
           ]).map((s,i,arr)=>(
-            <div key={i} style={{flex:1,padding:"1.2rem",textAlign:"center",borderRight:i<arr.length-1?"1px solid rgba(0,255,213,0.1)":"none"}}>
-              <div style={{fontSize:"1.6rem",fontWeight:900,color:"#00ffd5",lineHeight:1}}>{s.v}</div>
-              <div style={{fontSize:"0.62rem",color:"rgba(255,255,255,0.3)",textTransform:"uppercase",letterSpacing:"0.06em",marginTop:"0.3rem"}}>{s.l}</div>
+            <div key={i} style={{padding:"1rem",textAlign:"center",borderRight:i<arr.length-1?"1px solid rgba(0,255,213,0.1)":"none"}}>
+              <div style={{fontSize:"clamp(1rem,2.5vw,1.6rem)",fontWeight:900,color:"#00ffd5",lineHeight:1}}>{s.v}</div>
+              <div style={{fontSize:"clamp(0.5rem,1.2vw,0.62rem)",color:"rgba(255,255,255,0.3)",textTransform:"uppercase",letterSpacing:"0.04em",marginTop:"0.3rem"}}>{s.l}</div>
             </div>
           ))}
         </div>
