@@ -748,26 +748,39 @@ export default function OctopusLineConseil() {
           </div>
           <div style={{display:"flex",justifyContent:"flex-start",alignItems:"center",gap:"16px",flexWrap:"wrap",marginTop:"16px"}}>
             <div style={{color:"rgba(255,255,255,0.5)",fontSize:"0.85rem"}}>{lang==="fr"?"Managers de transition · DSI / CIO · CDO · RSSI / CISO · CTO":"Interim Managers · CIO · CDO · CISO · CTO"}</div>
-            <button className="btn-primary" type="button" onClick={async (e)=>{
-              const btn = e.currentTarget;
-              btn.textContent = lang==="fr"?"Envoi en cours...":"Sending...";
-              btn.style.opacity="0.7";
-              const inputs = btn.closest('div')?.parentElement?.querySelectorAll('input,textarea');
-              const data = new FormData();
-              inputs?.forEach((el:any) => { if(el.name && el.value) data.append(el.name, el.value); });
-              try {
-                const res = await fetch("https://formspree.io/f/mwvzoogr", {method:"POST",body:data,headers:{"Accept":"application/json"}});
-                if(res.ok){
-                  btn.textContent = lang==="fr"?"✓ Profil envoyé !":"✓ Profile sent!";
-                  btn.style.background="#00f0c0";
-                  btn.style.color="#000";
-                  btn.style.opacity="1";
-                  setTimeout(()=>{btn.textContent=lang==="fr"?"Envoyer mon profil →":"Submit my profile →";btn.style.background="";btn.style.color="";},4000);
-                } else {
-                  btn.textContent="Erreur — réessayez";
-                  btn.style.opacity="1";
-                }
-              } catch{btn.textContent="Erreur — réessayez";btn.style.opacity="1";}
+            <button className="btn-primary" type="button" onClick={(e)=>{
+              const section = (e.currentTarget as HTMLElement).closest('section');
+              const get = (placeholder:string) => (section?.querySelector(`input[placeholder*="${placeholder}"], input[placeholder*="${placeholder.toLowerCase()}"]`) as HTMLInputElement)?.value || '';
+              const nom = get('nom') || get('name') || get('Full');
+              const email = get('mail') || get('Email') || '';
+              const fonction = get('onction') || get('xpertise') || get('ole') || '';
+              const tjm = get('TJM') || get('daily') || get('rate') || '';
+              const textarea = section?.querySelector('textarea') as HTMLTextAreaElement;
+              const profil = textarea?.value || '';
+              const cvInput = section?.querySelector('input[type="url"]') as HTMLInputElement;
+              const cv = cvInput?.value || '';
+              const subject = encodeURIComponent(lang==="fr"?"Candidature réseau Octopus Line Conseil":"Network application Octopus Line Conseil");
+              const body = encodeURIComponent(
+                (lang==="fr"?"Nom: ":"Name: ") + nom + "
+" +
+                "Email: " + email + "
+" +
+                (lang==="fr"?"Fonction: ":"Role: ") + fonction + "
+" +
+                "TJM: " + tjm + "
+
+" +
+                (lang==="fr"?"Profil:
+":"Profile:
+") + profil + "
+
+" +
+                (lang==="fr"?"Lien CV: ":"CV link: ") + cv + "
+
+" +
+                (lang==="fr"?"--- Merci de joindre votre CV en pièce jointe ---":"--- Please attach your CV to this email ---")
+              );
+              window.location.href = `mailto:contact@octopus-line-conseil.com?subject=${subject}&body=${body}`;
             }}>{lang==="fr"?"Envoyer mon profil →":"Submit my profile →"}</button>
           </div>
         </div>
@@ -884,7 +897,7 @@ export default function OctopusLineConseil() {
             <input name="entreprise" placeholder={lang==="fr"?"Entreprise":"Company"} style={{padding:"14px",borderRadius:"10px",border:"1px solid rgba(255,255,255,0.1)",background:"#071120",color:"white"}}/>
           </div>
           <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"14px",marginTop:"14px"}}>
-            <select style={{padding:"14px",borderRadius:"10px",border:"1px solid rgba(255,255,255,0.1)",background:"#071120",color:"white"}}>
+            <select name="sujet" style={{padding:"14px",borderRadius:"10px",border:"1px solid rgba(255,255,255,0.1)",background:"#071120",color:"white"}}>
               <option value="">{lang==="fr"?"— Votre situation —":"— Your situation —"}</option>
               <option>{lang==="fr"?"DSI de Transition / Vacance managériale":"Interim CIO / Leadership vacancy"}</option>
               <option>{lang==="fr"?"Gestion de crise SI":"IT Crisis Management"}</option>
@@ -912,9 +925,11 @@ export default function OctopusLineConseil() {
               const btn = e.currentTarget;
               btn.textContent = lang==="fr"?"Envoi en cours...":"Sending...";
               btn.style.opacity="0.7";
-              const inputs = btn.closest('div')?.parentElement?.querySelectorAll('input,select,textarea');
+              const section = btn.closest('section');
               const data = new FormData();
-              inputs?.forEach((el:any) => { if(el.name && el.value) data.append(el.name, el.value); });
+              section?.querySelectorAll('input[name],select[name],textarea[name]').forEach((el:any) => {
+                if(el.value) data.append(el.name, el.value);
+              });
               try {
                 const res = await fetch("https://formspree.io/f/xgoqkywk", {method:"POST",body:data,headers:{"Accept":"application/json"}});
                 if(res.ok){
